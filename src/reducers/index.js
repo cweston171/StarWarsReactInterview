@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
+import charactersReducer from '../characters/redux/reducer'
 
 const rootReducer = combineReducers({
-  // reducers
+  charactersReducer
 })
 
 export default rootReducer
