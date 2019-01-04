@@ -7,7 +7,8 @@ const initialState = {
   homeworldsError: false,
   loadingCharacters: true,
   loadingHomeworlds: true,
-  selectedCharacter: undefined
+  selectedCharacter: undefined,
+  totalCharacters: 0
 }
 
 function charactersReducer(state = initialState, action) {
@@ -17,14 +18,16 @@ function charactersReducer(state = initialState, action) {
         ...state,
         characters: [],
         charactersError: false,
-        loadingCharacters: true
+        loadingCharacters: true,
+        totalCharacters: 0
       }
 
     case types.GET_CHARACTERS_SUCCESS:
       return {
         ...state,
-        characters: action.data,
-        loadingCharacters: false
+        characters: action.data.data,
+        loadingCharacters: false,
+        totalCharacters: parseInt(action.data.count, 10)
       }
 
     case types.GET_CHARACTERS_FAILURE:

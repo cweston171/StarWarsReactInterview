@@ -5,7 +5,7 @@ class CharacterService {
     const query = (request && request.query) || ''
     const page = (request && request.page) || 1
     const limit = (request && request.limit) || 10
-    const path = `/people?q=${query}&_page=${page}&_limmt=${limit}`
+    const path = `/people?q=${query}&_page=${page}&_limit=${limit}`
     return api.get(path)
   }
 

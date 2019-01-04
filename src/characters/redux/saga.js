@@ -9,7 +9,11 @@ export function* getCharacters(action) {
   try {
     console.log('saga action.data:', action.data)
     const resp = yield call(CharacterService.getCharacters, action.data)
-    yield put(actions.getCharactersSuccess(resp.data))
+    const results = {
+      data: resp.data,
+      count: resp.headers['x-total-count']
+    }
+    yield put(actions.getCharactersSuccess(results))
   } catch (ex) {
     console.log(ex)
     yield put(actions.getCharactersFailure())

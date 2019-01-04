@@ -5,8 +5,18 @@ import { connect } from 'react-redux'
 import * as characterActionCreators from './redux/actions'
 import SearchBar from '../SearchBar'
 import Card from '../Card'
+import ReactPaginate from 'react-paginate'
 
 class CharacterContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.resultsLimit = 10
+    this.state = {
+      page: 1,
+      query: ''
+    }
+  }
+
   componentDidMount() {
     // retrieve dataj
     const { actions } = this.props
@@ -14,9 +24,36 @@ class CharacterContainer extends React.Component {
     actions.getHomeworlds()
   }
 
+  handleSearchBar = value => {
+    this.setState(
+      prevState => ({
+        query: value
+      }),
+      () => {
+        this.handleFilterResults()
+      }
+    )
+  }
+
   handleFilterResults = value => {
     const { actions } = this.props
-    actions.getCharacters({ query: value })
+    actions.getCharacters({
+      query: this.state.query,
+      page: this.state.page,
+      limit: this.resultsLimit
+    })
+  }
+
+  handlePageClick = args => {
+    // do
+    this.setState(
+      prevState => ({
+        page: args.selected
+      }),
+      () => {
+        this.handleFilterResults()
+      }
+    )
   }
 
   render() {
@@ -24,7 +61,8 @@ class CharacterContainer extends React.Component {
       characters,
       charactersError,
       loadingCharacters,
-      homeworlds
+      homeworlds,
+      totalCharacters
     } = this.props
 
     const loading = <div style={{ textAlign: 'center' }}>Loading...</div>
@@ -49,8 +87,21 @@ class CharacterContainer extends React.Component {
 
     return (
       <div>
-        <SearchBar handleChange={this.handleFilterResults} />
+        <SearchBar handleChange={this.handleSearchBar} />
         {content}
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={totalCharacters / this.resultsLimit}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.handlePageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
       </div>
     )
   }
@@ -69,6 +120,7 @@ CharacterContainer.propTypes = {
     birth_year: PropTypes.string.isRequired,
     homeWorld: PropTypes.number
   }),
+  totalCharacters: PropTypes.number.isRequired,
   actions: PropTypes.any.isRequired
 }
 
@@ -85,7 +137,8 @@ const mstp = state => {
     homeworlds: charactersReducer.homeworlds,
     homeworldsError: charactersReducer.homeworldsError,
     loadingHomeworlds: charactersReducer.loadingHomeworlds,
-    selectedCharacter: charactersReducer.selectedCharacter
+    selectedCharacter: charactersReducer.selectedCharacter,
+    totalCharacters: charactersReducer.totalCharacters
   }
 }
 
