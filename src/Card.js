@@ -25,12 +25,12 @@ class Card extends Component {
   }
 }
 
-Card.propTypes = PropTypes.shapeOf({
+Card.propTypes = {
   name: PropTypes.string.isRequired,
   imgUrl: PropTypes.string.isRequired,
   birthday: PropTypes.string.isRequired,
   homePlanet: PropTypes.string
-})
+}
 
 Card.defaultProps = {
   homePlanet: undefined
