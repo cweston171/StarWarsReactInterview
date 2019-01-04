@@ -3,7 +3,7 @@ import * as types from './actions'
 const initialState = {
   characters: [],
   charactersError: false,
-  homeWorlds: [],
+  homeworlds: [],
   homeworldsError: false,
   loadingCharacters: true,
   loadingHomeworlds: true,
@@ -44,7 +44,6 @@ function charactersReducer(state = initialState, action) {
       }
 
     case types.GET_HOMEWORLDS_SUCCESS:
-      console.log('action.data:', action.data)
       return {
         ...state,
         homeworlds: action.data,

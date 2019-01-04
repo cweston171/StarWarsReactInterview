@@ -7,7 +7,8 @@ import * as actions from './actions'
  */
 export function* getCharacters(action) {
   try {
-    const resp = yield call(CharacterService.getCharacters)
+    console.log('saga action.data:', action.data)
+    const resp = yield call(CharacterService.getCharacters, action.data)
     yield put(actions.getCharactersSuccess(resp.data))
   } catch (ex) {
     console.log(ex)

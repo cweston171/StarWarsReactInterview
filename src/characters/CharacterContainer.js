@@ -14,9 +14,9 @@ class CharacterContainer extends React.Component {
     actions.getHomeworlds()
   }
 
-  componentDidUpdate(prevProps) {
-    // handle update
-    console.log(this.props.homeworlds)
+  handleFilterResults = value => {
+    const { actions } = this.props
+    actions.getCharacters({ query: value })
   }
 
   render() {
@@ -26,6 +26,7 @@ class CharacterContainer extends React.Component {
       loadingCharacters,
       homeworlds
     } = this.props
+
     const loading = <div style={{ textAlign: 'center' }}>Loading...</div>
     let content = loading
     if (!loadingCharacters && characters.length > 0) {
@@ -45,9 +46,10 @@ class CharacterContainer extends React.Component {
         <div style={{ textAlign: 'center' }}>Failed to load characters...</div>
       )
     }
+
     return (
       <div>
-        <SearchBar />
+        <SearchBar handleChange={this.handleFilterResults} />
         {content}
       </div>
     )
