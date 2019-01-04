@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+export const apiUrl = 'http://localhost:3008'
+
 const api = axios.create({
-  baseURL: 'https://localhost:3080',
+  baseURL: apiUrl,
   headers: {
     'Content-Type': 'application/json',
     'X-From': 'StarWars Interview',

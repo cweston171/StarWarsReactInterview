@@ -1,8 +1,12 @@
 import api from '../../api'
 
 class CharacterService {
-  static getCharacters(request) {
+  static getCharacters() {
     return api.get('/people')
+  }
+
+  static getHomeworlds() {
+    return api.get('/planets')
   }
 }
 

@@ -19,18 +19,43 @@ function charactersReducer(state = initialState, action) {
         charactersError: false,
         loadingCharacters: true
       }
+
     case types.GET_CHARACTERS_SUCCESS:
       return {
         ...state,
         characters: action.data,
         loadingCharacters: false
       }
+
     case types.GET_CHARACTERS_FAILURE:
       return {
         ...state,
         characters: [],
         charactersError: true,
         loadingCharacters: false
+      }
+
+    case types.GET_HOMEWORLDS:
+      return {
+        ...state,
+        homeworlds: [],
+        homeworldsError: false,
+        loadingHomeworlds: true
+      }
+
+    case types.GET_HOMEWORLDS_SUCCESS:
+      console.log('action.data:', action.data)
+      return {
+        ...state,
+        homeworlds: action.data,
+        loadingHomeworlds: false
+      }
+
+    case types.GET_HOMEWORLDS_FAILURE:
+      return {
+        ...state,
+        homeworldsError: true,
+        loadingHomeworlds: false
       }
 
     default:

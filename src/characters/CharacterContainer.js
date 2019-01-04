@@ -11,22 +11,32 @@ class CharacterContainer extends React.Component {
     // retrieve dataj
     const { actions } = this.props
     actions.getCharacters()
+    actions.getHomeworlds()
   }
 
   componentDidUpdate(prevProps) {
     // handle update
+    console.log(this.props.homeworlds)
   }
 
   render() {
-    const { characters, charactersError, loadingCharacters } = this.props
+    const {
+      characters,
+      charactersError,
+      loadingCharacters,
+      homeworlds
+    } = this.props
     const loading = <div style={{ textAlign: 'center' }}>Loading...</div>
     let content = loading
     if (!loadingCharacters && characters.length > 0) {
       content = (
         <div>
-          {characters.map(c => (
-            <Card character={c} />
-          ))}
+          {characters.map(c => {
+            const homeworld =
+              homeworlds && homeworlds.find(h => h.id === c.homeworld)
+            const homeworldName = homeworld ? homeworld.name : 'Unknown'
+            return <Card key={c.id} character={c} homeworld={homeworldName} />
+          })}
         </div>
       )
     }
@@ -45,16 +55,17 @@ class CharacterContainer extends React.Component {
 }
 
 CharacterContainer.propTypes = {
-  characters: PropTypes.arrayOf(
-    PropTypes.shape({ user: PropTypes.objectOf(PropTypes.any) })
-  ).isRequired,
+  characters: PropTypes.any.isRequired,
   charactersError: PropTypes.bool.isRequired,
   loadingCharacters: PropTypes.bool.isRequired,
+  homeworlds: PropTypes.any.isRequired,
+  homeworldsError: PropTypes.bool.isRequired,
+  loadingHomeworlds: PropTypes.bool.isRequired,
   selectedCharacter: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    imgUrl: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired,
-    homePlanet: PropTypes.string
+    image: PropTypes.string.isRequired,
+    birth_year: PropTypes.string.isRequired,
+    homeWorld: PropTypes.number
   }),
   actions: PropTypes.any.isRequired
 }
@@ -69,6 +80,9 @@ const mstp = state => {
     characters: charactersReducer.characters,
     charactersError: charactersReducer.charactersError,
     loadingCharacters: charactersReducer.loadingCharacters,
+    homeworlds: charactersReducer.homeworlds,
+    homeworldsError: charactersReducer.homeworldsError,
+    loadingHomeworlds: charactersReducer.loadingHomeworlds,
     selectedCharacter: charactersReducer.selectedCharacter
   }
 }
