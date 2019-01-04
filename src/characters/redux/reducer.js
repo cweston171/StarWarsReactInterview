@@ -10,7 +10,7 @@ const initialState = {
   selectedCharacter: undefined
 }
 
-export default function charactersReducer(state = initialState, action) {
+function charactersReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_CHARACTERS:
       return {
@@ -32,5 +32,10 @@ export default function charactersReducer(state = initialState, action) {
         charactersError: true,
         loadingCharacters: false
       }
+
+    default:
+      return state
   }
 }
+
+export default charactersReducer
