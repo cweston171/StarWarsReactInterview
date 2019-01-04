@@ -8,9 +8,13 @@
     "swapi-json-server": "git+https://github.com/joltup/swapi-json-server.git"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.4.2",
     "react-dom": "16.4.2",
-    "react-paginate": "5.2.4"
+    "react-paginate": "5.2.4",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-saga": "^0.16.2"
   },
   "scripts": {
     "start": "./node_modules/.bin/concurrently \"cd ./node_modules/swapi-json-server && node app.js\" \"react-scripts start\"",
