@@ -33,7 +33,21 @@ export function* getHomeworlds(action) {
   }
 }
 
+/**
+ * SAVE CHARACTER
+ */
+export function* saveCharacter(action) {
+  try {
+    const resp = yield call(CharacterService.saveCharacter, action.data)
+    yield put(actions.saveCharacterSuccess(resp.data))
+  } catch (ex) {
+    console.log(ex)
+    yield put(actions.saveCharacterFailure())
+  }
+}
+
 export function* charactersSaga() {
   yield takeLatest(actions.GET_CHARACTERS, getCharacters)
   yield takeLatest(actions.GET_HOMEWORLDS, getHomeworlds)
+  yield takeLatest(actions.SAVE_CHARACTER, saveCharacter)
 }

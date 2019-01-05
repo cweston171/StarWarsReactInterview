@@ -56,6 +56,11 @@ class CharacterContainer extends React.Component {
     )
   }
 
+  handleSave = character => {
+    const { actions } = this.props
+    actions.saveCharacter(character)
+  }
+
   render() {
     const {
       characters,
@@ -74,7 +79,14 @@ class CharacterContainer extends React.Component {
             const homeworld =
               homeworlds && homeworlds.find(h => h.id === c.homeworld)
             const homeworldName = homeworld ? homeworld.name : 'Unknown'
-            return <Card key={c.id} character={c} homeworld={homeworldName} />
+            return (
+              <Card
+                key={c.id}
+                character={c}
+                homeworld={homeworldName}
+                handleSave={this.handleSave}
+              />
+            )
           })}
         </div>
       )

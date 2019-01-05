@@ -60,3 +60,30 @@ export function getHomeworldsFailure() {
     type: GET_HOMEWORLDS_FAILURE
   }
 }
+
+/**
+ * SAVE CHARACTER
+ */
+export const SAVE_CHARACTER = '[People] Save Character'
+export const SAVE_CHARACTER_SUCCESS = '[People] Save Character - Success'
+export const SAVE_CHARACTER_FAILURE = '[People] Save Character - Failure'
+
+export function saveCharacter(data) {
+  return {
+    type: SAVE_CHARACTER,
+    data
+  }
+}
+
+export function saveCharacterSuccess(data) {
+  return {
+    type: SAVE_CHARACTER_SUCCESS,
+    data
+  }
+}
+
+export function saveCharacterFailure() {
+  return {
+    type: SAVE_CHARACTER_FAILURE
+  }
+}

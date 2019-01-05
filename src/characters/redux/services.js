@@ -12,6 +12,10 @@ class CharacterService {
   static getHomeworlds() {
     return api.get('/planets')
   }
+
+  static saveCharacter(character) {
+    return api.patch(`/people/${character.id}`, character)
+  }
 }
 
 export default CharacterService
